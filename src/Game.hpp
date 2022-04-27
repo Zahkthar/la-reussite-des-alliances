@@ -25,7 +25,7 @@ private:
 
     const int SCREEN_WIDTH = 1080;
     const int SCREEN_HEIGHT = 720;
-    const std::string SCREEN_TITLE = "La réussite des alliances";
+    const std::string SCREEN_TITLE = "La reussite des alliances";
 
     const int FRAMERATE_LIMIT = 60;
     const bool IS_VERTICAL_SYNC_ENABLED = true;

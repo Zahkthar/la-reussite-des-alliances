@@ -28,14 +28,12 @@ void Game::initWindow() {
 	this->window->setVerticalSyncEnabled(this->IS_VERTICAL_SYNC_ENABLED);
 }
 
-void Game::initStateData()
-{
+void Game::initStateData() {
 	this->stateData.window = this->window;
 	this->stateData.states = &this->states;
 }
 
-void Game::initStates()
-{
+void Game::initStates() {
 	this->states.push(new MainMenuState(&this->stateData));
 }
 
