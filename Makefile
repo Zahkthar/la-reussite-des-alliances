@@ -1,8 +1,8 @@
 CXX = g++
 CXXFLAGS = -W -Wall
 
-LFLAGS_RELEASE = -lsfml-graphics -lsfml-window -lsfml-audio -lsfml-network -lsfml-system # -mwindows
-LFLAGS_DEBUG = -lsfml-graphics-d -lsfml-window-d -lsfml-audio-d -lsfml-network-d -lsfml-system-d # -mwindows
+LFLAGS_RELEASE = -lsfml-graphics -lsfml-window -lsfml-audio -lsfml-network -lsfml-system -mwindows
+LFLAGS_DEBUG = -lsfml-graphics-d -lsfml-window-d -lsfml-audio-d -lsfml-network-d -lsfml-system-d -mwindows
 
 SFML_LOCATION = lib\SFML-2.5.1
 EXEC = LaReussiteDesAlliances
@@ -12,12 +12,12 @@ RM = del /Q /F
 
 all: release debug
 
-release: main.o Game.o State.o MainMenuState.o
+release: main.o Game.o State.o MainMenuState.o OptionMenuState.o GameNormalState.o
 # -O0 est le mode d'optimisation par défaut, -O3 consomme plus de mémoire mais gagne en temps d'exécution
-	$(CXX) -O0 obj\main.o obj\Game.o obj\State.o obj\MainMenuState.o -o bin\Release\$(EXEC) -L $(SFML_LOCATION)\lib $(LFLAGS_RELEASE)
+	$(CXX) -O0 obj\main.o obj\Game.o obj\State.o obj\MainMenuState.o obj\OptionMenuState.o obj\GameNormalState.o -o bin\Release\$(EXEC) -L $(SFML_LOCATION)\lib $(LFLAGS_RELEASE)
 
 debug: main.o Game.o State.o MainMenuState.o
-	$(CXX) -g3 obj\main.o obj\Game.o obj\State.o obj\MainMenuState.o -o bin\Debug\$(EXEC) -L $(SFML_LOCATION)\lib $(LFLAGS_DEBUG)
+	$(CXX) -g3 obj\main.o obj\Game.o obj\State.o obj\MainMenuState.o obj\OptionMenuState.o obj\GameNormalState.o -o bin\Debug\$(EXEC) -L $(SFML_LOCATION)\lib $(LFLAGS_DEBUG)
 
 
 main.o: src\main.cpp
@@ -31,6 +31,12 @@ State.o: src\State.cpp
 
 MainMenuState.o: src\MainMenuState.cpp
 	$(CXX) $(CXXFLAGS) -o obj\MainMenuState.o -c src\MainMenuState.cpp -I $(SFML_LOCATION)\include
+
+OptionMenuState.o: src\OptionMenuState.cpp
+	$(CXX) $(CXXFLAGS) -o obj\OptionMenuState.o -c src\OptionMenuState.cpp -I $(SFML_LOCATION)\include
+	
+GameNormalState.o: src\GameNormalState.cpp
+	$(CXX) $(CXXFLAGS) -o obj\GameNormalState.o -c src\GameNormalState.cpp -I $(SFML_LOCATION)\include
 
 clean:
 	$(RM) obj\*.o

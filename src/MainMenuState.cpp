@@ -48,12 +48,12 @@ void MainMenuState::updateInput(const float& dt) {
 	(void)dt; //We will not use this variable here.
 	
 	if(sf::Mouse::isButtonPressed(sf::Mouse::Button::Left) && isMouseInTheButton(this->playButtonSprite)) {
-		//this->states->push(new GameNormalState(this->stateData));
+		this->states->push(new GameNormalState(this->stateData));
 		std::cout << "playButton clicked" << std::endl;
 	}
 	
 	if(sf::Mouse::isButtonPressed(sf::Mouse::Button::Left) && isMouseInTheButton(this->optionButtonSprite)) {
-		//this->states->push(new OptionMenuState(this->stateData));
+		this->states->push(new OptionMenuState(this->stateData));
 		std::cout << "optionButton clicked" << std::endl;
 	}
 

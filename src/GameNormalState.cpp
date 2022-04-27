@@ -1,4 +1,4 @@
-#include "GameNormalState.hpp""
+#include "GameNormalState.hpp"
 
 void GameNormalState::initImages() {
     
@@ -29,6 +29,8 @@ GameNormalState::~GameNormalState() {
 
 void GameNormalState::updateInput(const float& dt) {
 	(void)dt; //We will not use this variable here.
+
+	if(sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) { this->endState(); }
 }
 
 void GameNormalState::update(const float& dt) {

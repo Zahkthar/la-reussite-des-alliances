@@ -29,6 +29,8 @@ OptionMenuState::~OptionMenuState() {
 
 void OptionMenuState::updateInput(const float& dt) {
 	(void)dt; //We will not use this variable here.
+
+	if(sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) { this->endState(); }
 }
 
 void OptionMenuState::update(const float& dt) {

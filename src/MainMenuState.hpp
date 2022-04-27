@@ -6,6 +6,8 @@
 #include "SFML/Graphics.hpp"
 
 #include "State.hpp"
+#include "GameNormalState.hpp"
+#include "OptionMenuState.hpp"
 
 class MainMenuState : public State
 {
