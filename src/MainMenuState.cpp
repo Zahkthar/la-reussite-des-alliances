@@ -44,22 +44,19 @@ MainMenuState::~MainMenuState() {
 }
 
 bool MainMenuState::isMouseInTheButton(sf::RectangleShape button) {
-	return this->mousePosWindow.x > button.getPosition().x && this->mousePosWindow.x < button.getPosition().x + button.getSize().x &&
-	   	   this->mousePosWindow.y > button.getPosition().y && this->mousePosWindow.y < button.getPosition().y + button.getSize().y;
+	return button.getGlobalBounds().contains(static_cast<sf::Vector2f>(this->mousePosWindow));
 }
 
 void MainMenuState::updateInput(const float& dt) {
 	(void)dt; //We will not use this variable here.
 	
-	//this->states->push(new AnotherState(this->stateData)); -> push un enfant de State dans states
-	//this->endState(); -> Supprime le top de states
-
-	// A régler : Quand on clique sur le bouton, le bouton se clique plusieurs fois. Ici ça ne pose pas de problème vu qu'on change de State, mais c'est un peu sale, il faudrait ajouter un oldClicState et currentClicState ou un truc du genre 
 	if(sf::Mouse::isButtonPressed(sf::Mouse::Button::Left) && isMouseInTheButton(this->playButton)) {
+		//this->states->push(new GameNormalState(this->stateData));
 		std::cout << "playButton clicked" << std::endl;
 	}
 	
 	if(sf::Mouse::isButtonPressed(sf::Mouse::Button::Left) && isMouseInTheButton(this->optionButton)) {
+		//this->states->push(new OptionState(this->stateData));
 		std::cout << "optionButton clicked" << std::endl;
 	}
 
