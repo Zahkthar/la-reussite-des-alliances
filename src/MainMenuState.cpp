@@ -53,7 +53,7 @@ void MainMenuState::updateInput(const float& dt) {
 	}
 	
 	if(sf::Mouse::isButtonPressed(sf::Mouse::Button::Left) && isMouseInTheButton(this->optionButtonSprite)) {
-		//this->states->push(new OptionState(this->stateData));
+		//this->states->push(new OptionMenuState(this->stateData));
 		std::cout << "optionButton clicked" << std::endl;
 	}
 
