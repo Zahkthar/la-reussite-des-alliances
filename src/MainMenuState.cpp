@@ -1,7 +1,9 @@
 #include "MainMenuState.hpp"
 
 void MainMenuState::initImages() {
-	
+	if(!this->playButtonTexture.loadFromFile("../res/Images/buttons/playButton.png")) {  }
+	if(!this->optionButtonTexture.loadFromFile("../res/Images/buttons/optionButton.png")) {  }
+	if(!this->quitButtonTexture.loadFromFile("../res/Images/buttons/quitButton.png")) {  }
 }
 
 void MainMenuState::initSounds() {
@@ -13,23 +15,18 @@ void MainMenuState::initFonts() {
 }
 
 void MainMenuState::initVariables() {
-	this->playButton.setSize(sf::Vector2f(this->BUTTON_WIDTH, this->BUTTON_HEIGHT));
-	this->playButton.setFillColor(sf::Color(107, 7, 26));
-	this->playButton.setOutlineColor(sf::Color(58, 58, 58));
-	this->playButton.setOutlineThickness(2.0f);
-	this->playButton.setPosition(sf::Vector2f(this->window->getSize().x / 2 - this->playButton.getSize().x / 2, this->window->getSize().y / 2 - this->playButton.getSize().y / 2 - this->BUTTON_HEIGHT * 2));
-	
-	this->optionButton.setSize(sf::Vector2f(this->BUTTON_WIDTH, this->BUTTON_HEIGHT));
-	this->optionButton.setFillColor(sf::Color(107, 7, 26));
-	this->optionButton.setOutlineColor(sf::Color(58, 58, 58));
-	this->optionButton.setOutlineThickness(2.0f);
-	this->optionButton.setPosition(sf::Vector2f(this->window->getSize().x / 2 - this->optionButton.getSize().x / 2, this->window->getSize().y / 2 - this->optionButton.getSize().y / 2));
+	this->greenBackground.setFillColor(sf::Color(23, 109, 0));
+	this->greenBackground.setSize(sf::Vector2f(this->window->getSize().x, this->window->getSize().y));
+	this->greenBackground.setPosition(0, 0);
 
-	this->quitButton.setSize(sf::Vector2f(this->BUTTON_WIDTH, this->BUTTON_HEIGHT));
-	this->quitButton.setFillColor(sf::Color(107, 7, 26));
-	this->quitButton.setOutlineColor(sf::Color(58, 58, 58));
-	this->quitButton.setOutlineThickness(2.0f);
-	this->quitButton.setPosition(sf::Vector2f(this->window->getSize().x / 2 - this->quitButton.getSize().x / 2, this->window->getSize().y / 2 - this->quitButton.getSize().y / 2 + this->BUTTON_HEIGHT * 2));
+	this->playButtonSprite.setTexture(this->playButtonTexture);
+	this->playButtonSprite.setPosition(sf::Vector2f(this->window->getSize().x / 2 - this->playButtonSprite.getTexture()->getSize().x / 2, this->window->getSize().y / 2 - this->playButtonSprite.getTexture()->getSize().y / 2 - this->playButtonSprite.getTexture()->getSize().y * 2));
+
+	this->optionButtonSprite.setTexture(this->optionButtonTexture);
+	this->optionButtonSprite.setPosition(sf::Vector2f(this->window->getSize().x / 2 - this->optionButtonSprite.getTexture()->getSize().x / 2, this->window->getSize().y / 2 - this->optionButtonSprite.getTexture()->getSize().y / 2));
+
+	this->quitButtonSprite.setTexture(this->quitButtonTexture);
+	this->quitButtonSprite.setPosition(sf::Vector2f(this->window->getSize().x / 2 - this->quitButtonSprite.getTexture()->getSize().x / 2, this->window->getSize().y / 2 - this->quitButtonSprite.getTexture()->getSize().y / 2 + this->quitButtonSprite.getTexture()->getSize().y * 2));
 }
 
 MainMenuState::MainMenuState(StateData* state_data) : State(state_data) {
@@ -43,24 +40,24 @@ MainMenuState::~MainMenuState() {
 
 }
 
-bool MainMenuState::isMouseInTheButton(sf::RectangleShape button) {
+bool MainMenuState::isMouseInTheButton(sf::Sprite button) {
 	return button.getGlobalBounds().contains(static_cast<sf::Vector2f>(this->mousePosWindow));
 }
 
 void MainMenuState::updateInput(const float& dt) {
 	(void)dt; //We will not use this variable here.
 	
-	if(sf::Mouse::isButtonPressed(sf::Mouse::Button::Left) && isMouseInTheButton(this->playButton)) {
+	if(sf::Mouse::isButtonPressed(sf::Mouse::Button::Left) && isMouseInTheButton(this->playButtonSprite)) {
 		//this->states->push(new GameNormalState(this->stateData));
 		std::cout << "playButton clicked" << std::endl;
 	}
 	
-	if(sf::Mouse::isButtonPressed(sf::Mouse::Button::Left) && isMouseInTheButton(this->optionButton)) {
+	if(sf::Mouse::isButtonPressed(sf::Mouse::Button::Left) && isMouseInTheButton(this->optionButtonSprite)) {
 		//this->states->push(new OptionState(this->stateData));
 		std::cout << "optionButton clicked" << std::endl;
 	}
 
-	if(sf::Mouse::isButtonPressed(sf::Mouse::Button::Left) && isMouseInTheButton(this->quitButton)) {
+	if(sf::Mouse::isButtonPressed(sf::Mouse::Button::Left) && isMouseInTheButton(this->quitButtonSprite)) {
 		this->endState();
 	}
 }
@@ -76,7 +73,8 @@ void MainMenuState::render(sf::RenderTarget* target) {
 	}
 	
 	// Render things
-	this->window->draw(this->playButton);
-	this->window->draw(this->optionButton);
-	this->window->draw(this->quitButton);
+	this->window->draw(this->greenBackground);
+	this->window->draw(this->playButtonSprite);
+	this->window->draw(this->optionButtonSprite);
+	this->window->draw(this->quitButtonSprite);
 }

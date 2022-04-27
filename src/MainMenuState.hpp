@@ -11,12 +11,15 @@ class MainMenuState : public State
 {
 private:
 	// Variables
-	const int BUTTON_HEIGHT = 50;
-	const int BUTTON_WIDTH = 400;
+	sf::RectangleShape greenBackground;
 
-	sf::RectangleShape playButton;
-	sf::RectangleShape optionButton;
-	sf::RectangleShape quitButton;
+	sf::Texture playButtonTexture;
+	sf::Texture optionButtonTexture;
+	sf::Texture quitButtonTexture;
+
+	sf::Sprite playButtonSprite;
+	sf::Sprite optionButtonSprite;
+	sf::Sprite quitButtonSprite;
 
 	// Functions
 	void initImages();
@@ -29,7 +32,7 @@ public:
 	virtual ~MainMenuState();
 
 	// Functions
-	bool isMouseInTheButton(sf::RectangleShape button);
+	bool isMouseInTheButton(sf::Sprite button);
 
 	void updateInput(const float& dt);
 	void update(const float& dt);
