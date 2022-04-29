@@ -2,15 +2,15 @@
 #define GAME_NORMAL_STATE_HPP_INCLUDED
 
 #include <iostream>
+#include <cstring>
 
 #include "SFML/Graphics.hpp"
 
 #include "State.hpp"
 
 typedef struct card{
-	char couleur;
+	char couleur; // "C", "S", "D" and "H"
 	int number;
-	int textureID;
 } card;
 
 class GameNormalState : public State
@@ -22,7 +22,9 @@ private:
 	sf::Texture pickButtonTexture;
 	sf::Sprite pickButtonSprite;
 
-	
+	// cardsTextures && cards : [0...12] -> Hearts; [13...25] -> Diamonds; [26...38] -> Spades; [39...51] -> Clubs; [52] for cardTextures, cardTextures[52] is backCard
+	sf::Texture cardTextures[53];
+	card cards[52];
 
 	// Functions
 	void initImages();
