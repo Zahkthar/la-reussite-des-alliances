@@ -11,6 +11,13 @@ class GameNormalState : public State
 {
 private:
 	// Variables
+	sf::RectangleShape greenBackground;
+
+	sf::Texture pickButtonTexture; // Moitié de la taille de l'écran en largeur
+	sf::Texture jumpButtonTexture;
+
+	sf::Sprite pickButtonSprite;
+	sf::Sprite jumpButtonSprite;
 
 	// Functions
 	void initImages();
