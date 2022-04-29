@@ -1,8 +1,8 @@
 /*
- * Idées :
- *  - Menu principal -> Jouer / Options / Quitter
+ * Trucs à faire :
  *  - Jeu :
- *      - Lance directement une partie
+ *      - Implémenter les cartes
+ *      - Faire un paquet de carte (la pioche)
  *  - Options :
  *      - Changer le volume de la musique
  */

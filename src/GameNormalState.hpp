@@ -7,17 +7,22 @@
 
 #include "State.hpp"
 
+typedef struct card{
+	char couleur;
+	int number;
+	int textureID;
+} card;
+
 class GameNormalState : public State
 {
 private:
 	// Variables
 	sf::RectangleShape greenBackground;
 
-	sf::Texture pickButtonTexture; // Moitié de la taille de l'écran en largeur
-	sf::Texture jumpButtonTexture;
-
+	sf::Texture pickButtonTexture;
 	sf::Sprite pickButtonSprite;
-	sf::Sprite jumpButtonSprite;
+
+	
 
 	// Functions
 	void initImages();

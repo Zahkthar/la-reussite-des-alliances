@@ -1,8 +1,8 @@
 CXX = g++
 CXXFLAGS = -W -Wall
 
-LFLAGS_RELEASE = -lsfml-graphics -lsfml-window -lsfml-audio -lsfml-network -lsfml-system -mwindows
-LFLAGS_DEBUG = -lsfml-graphics-d -lsfml-window-d -lsfml-audio-d -lsfml-network-d -lsfml-system-d -mwindows
+LFLAGS_RELEASE = -lsfml-graphics -lsfml-window -lsfml-audio -lsfml-network -lsfml-system # -mwindows
+LFLAGS_DEBUG = -lsfml-graphics-d -lsfml-window-d -lsfml-audio-d -lsfml-network-d -lsfml-system-d # -mwindows
 
 SFML_LOCATION = lib\SFML-2.5.1
 EXEC = LaReussiteDesAlliances
