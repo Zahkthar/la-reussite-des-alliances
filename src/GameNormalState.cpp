@@ -176,6 +176,18 @@ void GameNormalState::updateCardsPosition() {
 	}
 }
 
+void GameNormalState::updatePossibleJumpCount() {
+	this->possibleJumpCount = 0;
+
+	for(size_t i = 0; i < this->board.size(); ++i) {
+		if(i >= 1 && i <= this->board.size() - 1) { // We can't if there is no card left or right
+			if(this->board[i - 1].couleur == this->board[i + 1].couleur || this->board[i - 1].number == this->board[i + 1].number) {
+				this->possibleJumpCount += 1;
+			}
+		}
+	}
+}
+
 void GameNormalState::updateInput(const float& dt) {
 	(void)dt; //We will not use this variable here.
 
@@ -184,24 +196,42 @@ void GameNormalState::updateInput(const float& dt) {
 
 	if(sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) { this->endState(); }
 
-	if(currentPickButtonState != oldPickButtonState && currentPickButtonState == true) {
-		if(this->deck.empty() == false) {
-			this->board.push_back(this->deck.back());
-			this->deck.pop_back();
+	if(this->isGameFinished == false) {
+		if(currentPickButtonState != oldPickButtonState && currentPickButtonState == true) {
+			if(this->deck.empty() == false) {
+				this->board.push_back(this->deck.back());
+				this->deck.pop_back();
 
-			updateCardsPosition();
+				updateCardsPosition();
+				updatePossibleJumpCount();
+			}
 		}
-	}
 
-	for(size_t i = 0; i < this->board.size(); ++i) {
-		if(this->currentLeftClicButtonState != this->oldLeftClicButtonState && this->currentLeftClicButtonState == 1 && isMouseInTheSprite(this->board[i].cardSprite)) {
-			if(i >= 1 && i <= this->board.size() - 1) { // We can't if there is no card left or right
-				if(this->board[i - 1].couleur == this->board[i + 1].couleur || this->board[i - 1].number == this->board[i + 1].number) {
-					this->board.erase(this->board.begin() + i - 1); // delete the left card so all the card realign themselves
-					updateCardsPosition();
+		for(size_t i = 0; i < this->board.size(); ++i) {
+			if(this->currentLeftClicButtonState != this->oldLeftClicButtonState && this->currentLeftClicButtonState == 1 && isMouseInTheSprite(this->board[i].cardSprite)) {
+				if(i >= 1 && i <= this->board.size() - 1) { // We can't if there is no card left or right
+					if(this->board[i - 1].couleur == this->board[i + 1].couleur || this->board[i - 1].number == this->board[i + 1].number) {
+						this->board.erase(this->board.begin() + i - 1); // delete the left card so all the card realign themselves
+						updateCardsPosition();
+						updatePossibleJumpCount();
+					}
 				}
 			}
 		}
+		
+		// Detect if the game is finished or not
+		if(this->deck.size() == 0 && this->possibleJumpCount == 0) {
+			this->isGameFinished = true;
+			if(this->board.size() <= this->maximumPileOfCards) {
+				std::cout << "Vous avez gagne ! Bien joue !" << std::endl;
+				this->isGameWin = true;
+			} else {
+				std::cout << "Le nombre de tas restants est trop grand ! Dommage..." << std::endl;
+				this->isGameWin = false;
+			}
+		}
+	} else {
+		
 	}
 
 	this->oldLeftClicButtonState = this->currentLeftClicButtonState;

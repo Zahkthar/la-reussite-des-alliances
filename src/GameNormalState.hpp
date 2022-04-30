@@ -20,6 +20,12 @@ class GameNormalState : public State
 {
 private:
 	// Variables
+	bool isGameFinished = false;
+	bool isGameWin = false;
+	unsigned int maximumPileOfCards = 5;
+
+	int possibleJumpCount = 0;
+
 	bool currentPickButtonState = false;
 	bool oldPickButtonState = false;
 
@@ -53,6 +59,7 @@ public:
 	void shuffleDeck();
 	bool isMouseInTheSprite(sf::Sprite sprite);
 	void updateCardsPosition();
+	void updatePossibleJumpCount();
 
 	void updateInput(const float& dt);
 	void update(const float& dt);
