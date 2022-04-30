@@ -139,11 +139,11 @@ void GameNormalState::initVariables() {
 	this->theBackCard = { 'B', 0, sf::Sprite(cardTextures[52]) };
 
 	for(size_t i = 0; i < deck.size(); ++i) {
-		this->deck[i].cardSprite.setScale(4.0f, 4.0f);
-		this->deck[i].cardSprite.setPosition(sf::Vector2f(this->window->getSize().x - this->deck[i].cardSprite.getTexture()->getSize().x * 4, this->window->getSize().y - this->deck[i].cardSprite.getTexture()->getSize().y * 4 - 25));
+		this->deck[i].cardSprite.setScale(3.0f, 3.0f);
+		this->deck[i].cardSprite.setPosition(sf::Vector2f(this->window->getSize().x - this->deck[i].cardSprite.getTexture()->getSize().x * this->deck[i].cardSprite.getScale().x, this->window->getSize().y - this->deck[i].cardSprite.getTexture()->getSize().y * this->deck[i].cardSprite.getScale().y - 25));
 	}
 	
-	this->theBackCard.cardSprite.setScale(4.0f, 4.0f);
+	this->theBackCard.cardSprite.setScale(3.0f, 3.0f);
 	this->theBackCard.cardSprite.setPosition(deck.back().cardSprite.getPosition());
 }
 
@@ -174,7 +174,9 @@ void GameNormalState::updateInput(const float& dt) {
 			this->board.push_back(this->deck.back());
 			this->deck.pop_back();
 
-			this->board.back().cardSprite.setPosition(sf::Vector2f(200, 200));
+			for(size_t i = 0; i < this->board.size(); ++i) {
+				this->board.back().cardSprite.setPosition(sf::Vector2f(35 + 100 * (i % 10), 60 + this->board[i].cardSprite.getTexture()->getSize().y * this->board[i].cardSprite.getScale().y * (i / 10)));
+			}
 		}
 	}
 
@@ -190,7 +192,7 @@ void GameNormalState::render(sf::RenderTarget* target) {
 	if (!target) {
 		target = this->window;
 	}
-	
+
 	// Render things
 	this->window->draw(this->greenBackground);
 	this->window->draw(this->pickButtonSprite);
@@ -198,7 +200,7 @@ void GameNormalState::render(sf::RenderTarget* target) {
 	for(size_t i = 0; i < deck.size(); ++i) {
 		this->window->draw(deck[i].cardSprite);
 	}
-	//his->window->draw(theBackCard.cardSprite);
+	//this->window->draw(theBackCard.cardSprite);
 
 	for(size_t i = 0; i < board.size(); ++i) {
 		this->window->draw(board[i].cardSprite);
