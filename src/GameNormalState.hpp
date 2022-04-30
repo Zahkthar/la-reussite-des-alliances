@@ -19,13 +19,16 @@ class GameNormalState : public State
 {
 private:
 	// Variables
+	bool currentPickButtonState = false;
+	bool oldPickButtonState = false;
+
+	bool currentLeftClicButtonState = false;
+	bool oldLeftClicButtonState = false;
+
 	sf::RectangleShape greenBackground;
 
 	sf::Texture pickButtonTexture;
 	sf::Sprite pickButtonSprite;
-
-	bool currentPickButtonState = false;
-	bool oldPickButtonState = false;
 
 	// cardsTextures && cards : [0...12] -> Hearts; [13...25] -> Diamonds; [26...38] -> Spades; [39...51] -> Clubs; [52] for cardTextures
 	sf::Texture cardTextures[53];
@@ -46,7 +49,7 @@ public:
 	virtual ~GameNormalState();
 
 	// Functions
-	bool isMouseInTheButton(sf::Sprite button);
+	bool isMouseInTheSprite(sf::Sprite sprite);
 
 	void updateInput(const float& dt);
 	void update(const float& dt);

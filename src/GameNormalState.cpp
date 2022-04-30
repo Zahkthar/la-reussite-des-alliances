@@ -158,14 +158,15 @@ GameNormalState::~GameNormalState() {
 	
 }
 
-bool GameNormalState::isMouseInTheButton(sf::Sprite button) {
-	return button.getGlobalBounds().contains(static_cast<sf::Vector2f>(this->mousePosWindow));
+bool GameNormalState::isMouseInTheSprite(sf::Sprite sprite) {
+	return sprite.getGlobalBounds().contains(static_cast<sf::Vector2f>(this->mousePosWindow));
 }
 
 void GameNormalState::updateInput(const float& dt) {
 	(void)dt; //We will not use this variable here.
 
-	this->currentPickButtonState = sf::Mouse::isButtonPressed(sf::Mouse::Button::Left) && isMouseInTheButton(this->pickButtonSprite);
+	this->currentLeftClicButtonState = sf::Mouse::isButtonPressed(sf::Mouse::Button::Left);
+	this->currentPickButtonState = sf::Mouse::isButtonPressed(sf::Mouse::Button::Left) && isMouseInTheSprite(this->pickButtonSprite);
 
 	if(sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) { this->endState(); }
 
@@ -180,7 +181,14 @@ void GameNormalState::updateInput(const float& dt) {
 		}
 	}
 
-	oldPickButtonState = currentPickButtonState;
+	for(size_t i = 0; i < this->board.size(); ++i) {
+		if(currentLeftClicButtonState != oldLeftClicButtonState && currentLeftClicButtonState == 1 && isMouseInTheSprite(this->board[i].cardSprite)) {
+			std::cout << "card " << this->board[i].couleur << this->board[i].number << " pressed" << std::endl;
+		}
+	}
+
+	this->oldLeftClicButtonState = this->currentLeftClicButtonState;
+	this->oldPickButtonState = this->currentPickButtonState;
 }
 
 void GameNormalState::update(const float& dt) {
