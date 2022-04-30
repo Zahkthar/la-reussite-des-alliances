@@ -170,6 +170,12 @@ bool GameNormalState::isMouseInTheSprite(sf::Sprite sprite) {
 	return sprite.getGlobalBounds().contains(static_cast<sf::Vector2f>(this->mousePosWindow));
 }
 
+void GameNormalState::updateCardsPosition() {
+	for(size_t i = 0; i < this->board.size(); ++i) {
+		this->board[i].cardSprite.setPosition(sf::Vector2f(35 + 100 * (i % 10), 60 + this->board[i].cardSprite.getTexture()->getSize().y * this->board[i].cardSprite.getScale().y * (i / 10)));
+	}
+}
+
 void GameNormalState::updateInput(const float& dt) {
 	(void)dt; //We will not use this variable here.
 
@@ -183,15 +189,18 @@ void GameNormalState::updateInput(const float& dt) {
 			this->board.push_back(this->deck.back());
 			this->deck.pop_back();
 
-			for(size_t i = 0; i < this->board.size(); ++i) {
-				this->board.back().cardSprite.setPosition(sf::Vector2f(35 + 100 * (i % 10), 60 + this->board[i].cardSprite.getTexture()->getSize().y * this->board[i].cardSprite.getScale().y * (i / 10)));
-			}
+			updateCardsPosition();
 		}
 	}
 
 	for(size_t i = 0; i < this->board.size(); ++i) {
-		if(currentLeftClicButtonState != oldLeftClicButtonState && currentLeftClicButtonState == 1 && isMouseInTheSprite(this->board[i].cardSprite)) {
-			std::cout << "card " << this->board[i].couleur << this->board[i].number << " pressed" << std::endl;
+		if(this->currentLeftClicButtonState != this->oldLeftClicButtonState && this->currentLeftClicButtonState == 1 && isMouseInTheSprite(this->board[i].cardSprite)) {
+			if(i >= 1 && i <= this->board.size() - 1) { // We can't if there is no card left or right
+				if(this->board[i - 1].couleur == this->board[i + 1].couleur || this->board[i - 1].number == this->board[i + 1].number) {
+					this->board.erase(this->board.begin() + i - 1); // delete the left card so all the card realign themselves
+					updateCardsPosition();
+				}
+			}
 		}
 	}
 

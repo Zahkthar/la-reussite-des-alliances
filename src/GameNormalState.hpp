@@ -51,8 +51,8 @@ public:
 
 	// Functions
 	void shuffleDeck();
-
 	bool isMouseInTheSprite(sf::Sprite sprite);
+	void updateCardsPosition();
 
 	void updateInput(const float& dt);
 	void update(const float& dt);
