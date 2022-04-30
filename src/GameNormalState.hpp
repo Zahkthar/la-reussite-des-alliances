@@ -2,7 +2,8 @@
 #define GAME_NORMAL_STATE_HPP_INCLUDED
 
 #include <iostream>
-#include <cstring>
+#include <array>
+#include <vector>
 
 #include "SFML/Graphics.hpp"
 
@@ -10,7 +11,8 @@
 
 typedef struct card{
 	char couleur; // "C", "S", "D" and "H"
-	int number;
+	int number; // 1 = A; 11 = J; 12 = Q; 13 = K
+	sf::Sprite cardSprite;
 } card;
 
 class GameNormalState : public State
@@ -22,9 +24,16 @@ private:
 	sf::Texture pickButtonTexture;
 	sf::Sprite pickButtonSprite;
 
-	// cardsTextures && cards : [0...12] -> Hearts; [13...25] -> Diamonds; [26...38] -> Spades; [39...51] -> Clubs; [52] for cardTextures, cardTextures[52] is backCard
+	bool currentPickButtonState = false;
+	bool oldPickButtonState = false;
+
+	// cardsTextures && cards : [0...12] -> Hearts; [13...25] -> Diamonds; [26...38] -> Spades; [39...51] -> Clubs; [52] for cardTextures
 	sf::Texture cardTextures[53];
-	card cards[52];
+
+	std::vector<card> deck;
+	std::vector<card> board;
+
+	card theBackCard; // The card to display on top of the deck
 
 	// Functions
 	void initImages();
@@ -37,6 +46,8 @@ public:
 	virtual ~GameNormalState();
 
 	// Functions
+	bool isMouseInTheButton(sf::Sprite button);
+
 	void updateInput(const float& dt);
 	void update(const float& dt);
 	void render(sf::RenderTarget* target = NULL);
