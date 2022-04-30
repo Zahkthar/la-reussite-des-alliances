@@ -208,7 +208,7 @@ void GameNormalState::render(sf::RenderTarget* target) {
 	for(size_t i = 0; i < deck.size(); ++i) {
 		this->window->draw(deck[i].cardSprite);
 	}
-	//this->window->draw(theBackCard.cardSprite);
+	if(this->deck.size() > 0) { this->window->draw(theBackCard.cardSprite); }
 
 	for(size_t i = 0; i < board.size(); ++i) {
 		this->window->draw(board[i].cardSprite);
