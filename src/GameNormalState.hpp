@@ -2,8 +2,9 @@
 #define GAME_NORMAL_STATE_HPP_INCLUDED
 
 #include <iostream>
-#include <array>
 #include <vector>
+#include <algorithm>
+#include <random>
 
 #include "SFML/Graphics.hpp"
 
@@ -49,6 +50,8 @@ public:
 	virtual ~GameNormalState();
 
 	// Functions
+	void shuffleDeck();
+
 	bool isMouseInTheSprite(sf::Sprite sprite);
 
 	void updateInput(const float& dt);

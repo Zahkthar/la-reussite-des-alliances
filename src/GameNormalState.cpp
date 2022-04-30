@@ -145,6 +145,8 @@ void GameNormalState::initVariables() {
 	
 	this->theBackCard.cardSprite.setScale(3.0f, 3.0f);
 	this->theBackCard.cardSprite.setPosition(deck.back().cardSprite.getPosition());
+
+	shuffleDeck();
 }
 
 GameNormalState::GameNormalState(StateData* state_data) : State(state_data) {
@@ -156,6 +158,12 @@ GameNormalState::GameNormalState(StateData* state_data) : State(state_data) {
 
 GameNormalState::~GameNormalState() {
 	
+}
+
+void GameNormalState::shuffleDeck() {
+	std::random_device rd;
+	std::mt19937 g(rd());
+	std::shuffle(this->deck.begin(), this->deck.end(), g);
 }
 
 bool GameNormalState::isMouseInTheSprite(sf::Sprite sprite) {
