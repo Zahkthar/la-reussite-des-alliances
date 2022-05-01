@@ -28,6 +28,7 @@ private:
 
 	sf::Font musicVolumeFont;
 	sf::Text musicVolumeText;
+	int volumeStep = 5;
 	int musicVolume = 50;
 
 	// Functions

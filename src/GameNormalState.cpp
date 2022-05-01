@@ -64,7 +64,17 @@ void GameNormalState::initImages() {
 }
 
 void GameNormalState::initSounds() {
+	if(this->backgroundMusic.openFromFile("../res/Sounds/background_music.ogg")) {  }
 
+	std::ifstream configFile;
+	configFile.open("../res/config.ini");
+	configFile >> this->backgroundMusicVolume;
+	configFile.close();
+
+	this->backgroundMusic.setVolume(this->backgroundMusicVolume);
+	this->backgroundMusic.setLoop(true);
+
+	this->backgroundMusic.play();
 }
 
 void GameNormalState::initFonts() {

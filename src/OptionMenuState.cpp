@@ -64,13 +64,17 @@ void OptionMenuState::updateInput(const float& dt) {
 	}
 
 	if(this->currentLeftClicButtonState != this->oldLeftClicButtonState && this->currentLeftClicButtonState == true && isMouseInTheSprite(this->plusVolumeButtonSprite)) {
-		this->musicVolume += 1;
-		this->musicVolumeText.setString(std::to_string(this->musicVolume));
+		if(this->musicVolume + this->volumeStep <= 100) {
+			this->musicVolume += this->volumeStep;
+			this->musicVolumeText.setString(std::to_string(this->musicVolume));
+		}
 	}
 
 	if(this->currentLeftClicButtonState != this->oldLeftClicButtonState && this->currentLeftClicButtonState == true && isMouseInTheSprite(this->minusVolumeButtonSprite)) {
-		this->musicVolume -= 1;
-		this->musicVolumeText.setString(std::to_string(this->musicVolume));
+		if(this->musicVolume - this->volumeStep >= 0) {
+			this->musicVolume -= this->volumeStep;
+			this->musicVolumeText.setString(std::to_string(this->musicVolume));
+		}
 	}
 
 	this->oldLeftClicButtonState = this->currentLeftClicButtonState;

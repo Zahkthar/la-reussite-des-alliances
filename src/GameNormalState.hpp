@@ -2,11 +2,13 @@
 #define GAME_NORMAL_STATE_HPP_INCLUDED
 
 #include <iostream>
+#include <fstream>
 #include <vector>
 #include <algorithm>
 #include <random>
 
 #include "SFML/Graphics.hpp"
+#include "SFML/Audio.hpp"
 
 #include "State.hpp"
 
@@ -32,6 +34,9 @@ private:
 	bool currentLeftClicButtonState = false;
 	bool oldLeftClicButtonState = false;
 
+	sf::Music backgroundMusic;
+	int backgroundMusicVolume = 50;
+	
 	sf::RectangleShape greenBackground;
 
 	sf::Texture pickButtonTexture;
