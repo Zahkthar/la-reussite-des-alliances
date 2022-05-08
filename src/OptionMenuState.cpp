@@ -30,7 +30,7 @@ void OptionMenuState::initVariables() {
 	this->plusVolumeButtonSprite.setTexture(this->plusVolumeButtonTexture);
 	this->plusVolumeButtonSprite.setPosition(sf::Vector2f(this->musicVolumeText.getPosition().x + 2 * this->musicVolumeText.getLocalBounds().width, this->musicVolumeText.getPosition().y));
 	
-	this->minusVolumeButtonSprite.setTexture(this->plusVolumeButtonTexture);
+	this->minusVolumeButtonSprite.setTexture(this->minusVolumeButtonTexture);
 	this->minusVolumeButtonSprite.setPosition(sf::Vector2f(this->musicVolumeText.getPosition().x - this->musicVolumeText.getLocalBounds().width - minusVolumeButtonTexture.getSize().x, this->musicVolumeText.getPosition().y));
 }
 
