@@ -207,7 +207,7 @@ void GameNormalState::updateInput(const float& dt) {
 	if(sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) { this->endState(); }
 
 	if(this->isGameFinished == false) {
-		if(currentPickButtonState != oldPickButtonState && currentPickButtonState == true) {
+		if(currentPickButtonState != oldPickButtonState && currentPickButtonState == true && currentLeftClicButtonState == true && oldLeftClicButtonState == false) {
 			if(this->deck.empty() == false) {
 				this->board.push_back(this->deck.back());
 				this->deck.pop_back();
